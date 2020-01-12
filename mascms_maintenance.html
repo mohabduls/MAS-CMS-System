@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+body{
+	margin: 0;
+	padding: 0;
+	font-family: montserrat,sans-serif;
+	background: #007FFF;
+}
+.animated-text{
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #007FFF;
+  padding: 0 20px;
+  height: 30px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.line{
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.line:first-child{
+  animation: anim 12s infinite;
+}
+
+@keyframes anim {
+  0%{
+    margin-top: 0;
+  }
+  16%{
+    margin-top: -30px;
+  }
+  33%{
+    margin-top: -60px;
+  }
+  50%{
+    margin-top: -90px;
+  }
+  66%{
+    margin-top: -120px;
+  }
+  82%{
+    margin-top: -150px;
+  }
+  100%{
+    margin-top: 0;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="animated-text">
+      <div class="line">Sorry</div>
+      <div class="line">We</div>
+      <div class="line">Are</div>
+      <div class="line">Under</div>
+      <div class="line">Maintenance</div>
+      <div class="line">Come Back Soon!</div>
+    </div>
+  </body>
+</html>

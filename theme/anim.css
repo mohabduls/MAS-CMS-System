@@ -1,0 +1,44 @@
+.animated-text{
+  color: #fff;
+  background: #1976D2;
+  padding: 0 20px;
+  height: 20px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.line{
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: bold;
+}
+
+.line:first-child{
+  animation: anim 10s infinite;
+}
+
+@keyframes anim {
+  0%{
+    margin-top: 0;
+  }
+  16%{
+    margin-top: -20px;
+  }
+  33%{
+    margin-top: -40px;
+  }
+  50%{
+    margin-top: -60px;
+  }
+  66%{
+    margin-top: -80px;
+  }
+  82%{
+    margin-top: -100px;
+  }
+  100%{
+    margin-top: 0;
+  }
+}

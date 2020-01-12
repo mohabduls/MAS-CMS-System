@@ -1,0 +1,284 @@
+.d-head
+{
+  background-color: #3399ff;
+  padding: 20px;
+}
+.d-footer
+{
+  background-color: #3399ff;
+  padding: 20px;
+}
+.d-list
+{
+	background-color: #F2F3F4;
+	margin-bottom: 3px;
+	border-bottom: 1px solid #E6E6FA;
+	padding: 3px;
+}
+.d-head-title
+{
+	background-color: #0095B6;
+    padding: 10px;
+    margin-top: 5px;
+}
+.d-strip
+{
+	border-bottom: 2px solid white;
+	margin-bottom: 10px;
+	padding: 3px;
+}
+.h-t
+{
+	color: #0095B6;
+	margin-bottom: 2px;
+	margin-top: 2px;
+}
+.d
+{
+  background-color: #33adff;
+  padding: 10px;
+  margin: 5px;
+}
+.d-red
+{
+  background-color: #ff704d;
+  padding: 10px;
+  margin: 0px;
+}
+.d-content
+{
+	background-color: white;
+}
+.d-content-list
+{
+	background-color: #F2F3F4;
+	margin: 2px;
+	border-bottom: 1px solid #E6E6FA;
+}
+.d-padding
+{
+	padding: 5px;
+}
+.d-menu
+{
+
+}
+.h-title
+{
+  color: white;
+  font-family: sans-serif;
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+.h-foot
+{
+  color: white;
+  font-family: sans-serif;
+  margin: 0px;
+}
+.t-green
+{
+	color: #8FBC8F;
+}
+.t-white
+{
+	color: white;
+}
+.t-red
+{
+	color: red;
+}
+.t-pink
+{
+	color: #F8BBD0;
+}
+.t-blue
+{
+	color: #007FFF;
+}
+.t-dark-blue
+{
+	color: #01579B;
+}
+.thumb
+{
+	width: 120px;
+	height: auto;
+}
+.input-email
+{
+	width: 200px;
+}
+.a-menu:link, a-menu:visited
+{
+  background-color: #99ccff;
+  color: white;
+  padding: 7px 14px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.a-menu:hover, a-menu:active
+{
+  color: white;
+}
+.a-menu
+{
+  color: white;
+  margin-top : 3px;
+}
+a
+{
+  text-decoration: none;
+  color: black;
+}
+.right
+{
+	right: 0;
+	position: static;
+}
+.color-list
+{
+	color: #0095B6;
+}
+.color-time
+{
+	color: #0095B6;
+	margin: 0px;
+}
+input
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+input[type=text]:focus
+{
+  border: 3px solid #3399ff;
+}
+input[type=submit]
+{
+  background-color: #66ccff;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  font-style: bold;
+}
+input[type=submit]:hover
+{
+  background-color: #0099ff;
+}
+body
+{
+  max-width: 750px;
+  margin: auto;
+  font-family: "Lato", sans-serif;
+  transition: background-color .5s;
+}
+textarea
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  height: 300px;
+}
+select
+{
+	width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #0095B6;
+    border-radius: 4px;
+    background-color: white;
+    box-sizing: border-box;
+}
+pre
+{
+	display: inline;
+    font-family: sans-serif;
+    max-width: 700px;
+    width: 300px;
+}
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #3399ff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px !important;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 2px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+  .input-email{width: 100%;}
+}
+img
+{
+	height: 200px;
+	max-width: 400px;
+	max-height: 400px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr
+{
+	background-color: #0288D1;
+	color: white;
+}
+tr:nth-child(even)
+{
+	background-color: #80D8FF;
+	color: black;
+}
+
+th {
+    background-color: #0091EA;
+    color: white;
+}

@@ -1,0 +1,18 @@
+# Warning!!! 
+# If you not understand this file, Do not change anything !!!
+# Or your server will show code 500 server error ! 
+# MASCMS
+#Modul Rewrite PHP
+
+RewriteBase /
+RewriteEngine On
+RewriteRule ^sitemap.xml$ sitemap.php [NC]
+RewriteRule ^home.asp$ index.php [NC]
+RewriteRule ^cat.asp$ show-cat.php [NC]
+RewriteRule ^post.asp$ view-post.php [NC]
+RewriteRule ^rest-api/web-api.json$ rest-api/web-api.php [NC]
+RewriteRule ^maintenance.asp$ maintenance.php [NC]
+RewriteRule ^go.asp$ mascms-go.php [NC]
+RewriteRule ^captcha.png$ mascms-captcha.php [NC]
+
+#END MASCMS
