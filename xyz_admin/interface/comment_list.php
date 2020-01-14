@@ -3,18 +3,19 @@ include("../database/mascms-config.php");
 
 
 $page = isset($_GET['page_comments']) ? (int)$_GET['page_comments']: 1;
-$list_per_page = 2;
+$limit = 5;
 $start = ($page > 1) ? ($page * $list_per_page) - $list_per_page : 0;
+$limit_start = ($page - 1) * $limit;
 //SQL
 $sql_get_all = "SELECT * FROM user";
 $query_total = $mas_class->mas_query($masdb, $sql_get_all);
 $total = mysqli_num_rows($query_total);
 
-$sql_get_comments = "SELECT * FROM user ORDER BY id DESC LIMIT $start, $list_per_page";
+$sql_get_comments = "SELECT * FROM user ORDER BY id DESC LIMIT $start, $limit";
 $query_comments = $mas_class->mas_query($masdb, $sql_get_comments);
 $number_of_comments = mysqli_num_rows($query_comments);
 
-$pages = ceil($total/$list_per_page);
+$pages = ceil($total/$limit);
 
 if($number_of_comments > 0)
 {
@@ -149,58 +150,54 @@ if($number_of_comments > 0)
 				Status : <?echo $status; ?><br/>
 				<a class="t-green" href="?action=comments&op=reply&id_comments=<?php echo $comments_id."&user_name=".$comments_name."&id_permalink=".$comments_permalink; ?>">Reply</a> - <a class="t-red" href="?action=comments&op=delete&id_comments=<?php echo $comments_id."&user_name=".$comments_name."&id_permalink=".$comments_id; ?>">Delete</a>
 			</div>
+		<?php
+	}
+		if($page == 1)
+		{
+			?>
+			<a class="a-menu" href="#">First</a>
+			<?php
+		}
+		else
+		{
+			$link_prev = ($page > 1) ? $page - 1 : 1;
+			
+			?>
+			<a class="a-menu" href="?action=comments&page_comments=1">First</a>
+			<?php
+		}
 		
-		<?php
-	}
-	if((int)$_GET['page_comments'] == 1)
-	{
-		?>
-		<a class="a-menu" href="#">First</a>
-		<?php
-	}
-	else
-	{
-		?>
-		<a class="a-menu" href="?action=comments&page_comments=<?php echo $page - 1; ?>">Prev</a>
-		<?php
-	}
-	/*for($i = 1; $i <= pages; $i++)
-	{
-		?>
-		<a class="a-menu" href="?action=comments&page_comments=<?php echo $i; ?>"><?php echo $i; ?></a>
-		<?php
-	}*/
+		//COUNT ALL DATA
+		$sql_data = "SELECT COUNT(*) AS total FROM user";
+		$query_data = $mas_class->mas_query($masdb, $sql_data);
+		$get_jumlah = mysqli_fetch_assoc($query_data);
+		
+		$jumlah_page = ceil($get_jumlah['total'] / $limit);
+		$jumlah_number = 3;
+		$start_number = ($page > $jumlah_number)? $page - $jumlah_number : 1;
+		$end_number = ($page < ($jumlah_page - $jumlah_number))? $page + $jumlah_number : $jumlah_page;
+		
+		for($i = $start_number; $i <= $end_number; $i++)
+		{
+      	  ?>
+        	<a class="a-menu" href="?action=comments&page_comments=<?php echo $i; ?>"><?php echo $i; ?></a>
+        	<?php
+        }
+        if($page == $jumlah_page)
+        {
+        	?>
+        	<a class="a-menu" href="#">--</a>
+        	<?
+        }
+        else
+        {
+        	$link_next = ($page < $jumlah_page)? $page + 1 : $jumlah_page;
+        	?>
+        	<a class="a-menu" href="?action=comments&page_comments=<?php echo $link_next; ?>">Next</a>
+		    <a class="a-menu" href="?action=comments&page_comments=<?php echo $jumlah_page; ?>">Last</a>
+        	<?php
+        }
 	
-	if($_GET['page_comments'] > 0 AND $_GET['page_comments'] <= $pages)
-	{
-		?>
-		<a class="a-menu" href="?action=comments&page_comments=<?php echo $_GET['page_comments']+1; ?>"><?php echo $_GET['page_comments']+1; ?></a>
-		<a class="a-menu" href="?action=comments&page_comments=<?php echo $_GET['page_comments']+2; ?>"><?php echo $_GET['page_comments']+2; ?></a>
-		<a class="a-menu" href="?action=comments&page_comments=<?php echo $_GET['page_comments']+3; ?>"><?php echo $_GET['page_comments']+3; ?></a>
-	<?php
-	}
-	else
-	{
-		?>
-		<a class="a-menu" href="#"><?php echo $_GET['page_comments']; ?></a>
-		<?php
-	}
-	if((int)$_GET['page_comments'] == $pages)
-	{
-		?>
-		<a class="a-menu" href="#">-</a>
-		<?php
-	}
-	else
-	{
-		?>
-		<a class="a-menu" href="?action=comments&page_comments=<?php echo $_GET['page_comments'] + 1; ?>">Next</a>
-		<?php
-	}
-	?>
-	<a class="a-menu" href="?action=comments&page_comments=<?php echo $pages; ?>">Last</a>
-		</div>
-	<?php
 }
 else
 {

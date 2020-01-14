@@ -21,17 +21,31 @@ include("header.php");
 	<div class="row">
 <?php
 //PAGINATION 
+$halaman = 10;
+
+$sql_pagination = "SELECT * FROM post WHERE category='$list_cat' ORDER BY id DESC";
+$sql_count = "SELECT COUNT(*) AS total FROM post";
+
+
 $cat = gantiUnderScore($_GET['category']);
 $list_cat = mysqli_real_escape_string($masdb, $cat);
-$halaman = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 0;
 $mulai = ($page > 1) ? ($page * $halaman) - $halaman : 0;
 $query_cat = "SELECT * FROM post WHERE category='$list_cat' ORDER BY id DESC LIMIT $mulai, $halaman";
-$sql_pagination = "SELECT * FROM post WHERE category='$list_cat' ORDER BY id DESC";
+
 $result_p = $mas_class->mas_query($masdb, $sql_pagination);
 $total = mysqli_num_rows($result_p);
 $pages = ceil($total/$halaman);
 $result = $mas_class->mas_query($masdb, $query_cat);
+
+$query_count = $mas_class->mas_query($masdb, $sql_count);
+$fetch_count = mysqli_fetch_assoc($query_count);
+	
+$jumlah_page = ceil($fetch_count['total']/$halaman);
+$jumlah_number = 3;
+	
+$start_number = ($page > $jumlah_number)? $page - $jumlah_number : 1; 
+$end_number = ($page < ($jumlah_page - $jumlah_number))? $page + $jumlah_number : $jumlah_page;
 
 if(mysqli_num_rows($result) > 0)
 {
@@ -107,12 +121,41 @@ else
 		<div class="container">
 		<ul class="pagination justify-content-center">
 <?php
-for($i=1; $i<=$pages; $i++)
-{
-	?>
-			<li class="page-item"><a class="page-link" href="cat.asp?category=<?php echo gantiSpasi($cat); ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-	<?php
-}
+if($page == 1)
+	{
+		?>
+		<li class="page-item disable"><a class="page-link" href="#">First</a></li>
+		<?php
+	}
+	else
+	{
+		$link_prev = ($page > 1) ? $page - 1 : 1;
+		
+		?>
+		<li class="page-item"><a class="page-link" href="?category=<?php echo $cat; ?>&page=1">First</a></li>
+		<?php
+	}
+    
+    for($i = $start_number; $i <= $end_number; $i++)
+	{
+  	  ?>
+    	<li class="page-item"><a class="page-link" href="?category=<?php echo $cat; ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+    	<?php
+    }
+    if($page == $jumlah_page)
+    {
+    	?>
+    	<li class="page-item disable"><a class="page-link" href="#">Last</a></li>
+    	<?
+    }
+    else
+    {
+    	$link_next = ($page < $jumlah_page)? $page + 1 : $jumlah_page;
+    	?>
+    	<li class="page-item"><a class="page-link" href="?category=<?php echo $cat; ?>&page=<?php echo $link_next; ?>">Next</a></li>
+  	  <li class="page-item"><a class="page-link" href="?category=<?php echo $cat; ?>&page=<?php echo $jumlah_page; ?>">Last</a></li>
+    	<?php
+    }
 ?>
 		</ul>
 		</div>

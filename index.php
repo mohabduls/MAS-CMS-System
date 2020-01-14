@@ -128,13 +128,27 @@ if(isset($_GET['keyword']))
 	<div class="row">
 <?php
 //PAGINATION 
-$sql_pagination = "SELECT * from post";
 $halaman = 10;
+$sql_pagination = "SELECT * from post";
+$sql_count = "SELECT COUNT(*) AS total FROM post";
+
+
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 0;
 $mulai = ($page > 1) ? ($page * $halaman) - $halaman : 0;
 $result = $mas_class->mas_query($masdb, $sql_pagination);
 $total = mysqli_num_rows($result);
 $pages = ceil($total/$halaman);
+
+
+$query_count = $mas_class->mas_query($masdb, $sql_count);
+$fetch_count = mysqli_fetch_assoc($query_count);
+	
+$jumlah_page = ceil($fetch_count['total']/$halaman);
+$jumlah_number = 3;
+	
+$start_number = ($page > $jumlah_number)? $page - $jumlah_number : 1; 
+$end_number = ($page < ($jumlah_page - $jumlah_number))? $page + $jumlah_number : $jumlah_page;
+
 $sql_list_post = "SELECT * FROM post ORDER BY id DESC LIMIT $mulai, $halaman";
 //LIST POSTINGAN
 $hasil = $mas_class->mas_query($masdb, $sql_list_post);
@@ -206,12 +220,41 @@ if(mysqli_num_rows($hasil) > 0)
 		<div class="container">
 		<ul class="pagination justify-content-center">
 <?php
-for($i=1; $i<=$pages; $i++)
-{
-	?>
-				<li class="page-item"><a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-	<?php
-}
+if($page == 1)
+	{
+		?>
+		<li class="page-item disable"><a class="page-link" href="#">First</a></li>
+		<?php
+	}
+	else
+	{
+		$link_prev = ($page > 1) ? $page - 1 : 1;
+		
+		?>
+		<li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+		<?php
+	}
+    
+    for($i = $start_number; $i <= $end_number; $i++)
+	{
+  	  ?>
+    	<li class="page-item"><a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+    	<?php
+    }
+    if($page == $jumlah_page)
+    {
+    	?>
+    	<li class="page-item disable"><a class="page-link" href="#">Last</a></li>
+    	<?
+    }
+    else
+    {
+    	$link_next = ($page < $jumlah_page)? $page + 1 : $jumlah_page;
+    	?>
+    	<li class="page-item"><a class="page-link" href="?page=<?php echo $link_next; ?>">Next</a></li>
+  	  <li class="page-item"><a class="page-link" href="?page=<?php echo $jumlah_page; ?>">Last</a></li>
+    	<?php
+    }
 }
 ?>
 

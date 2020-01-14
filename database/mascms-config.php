@@ -1,10 +1,10 @@
 <?php
 include("sql.php");
 //SETTING UP DATABASE
-$db_host = "localhost:3306";
+$db_host = "localhost";
 $db_user = "root";
 $db_pass = "";
-$db_name = "korenime"; //DEFINE YOUR DATABASE NAME
+$db_name = "MASCMS"; //DEFINE YOUR DATABASE NAME
 
 //MASCMS DB Prepare
 $mas_class = new MASCMS_DB();

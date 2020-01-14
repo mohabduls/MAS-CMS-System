@@ -295,13 +295,26 @@ else
 		}
 	}
 	//PAGINATION
+	$halaman = 10;
 	$sql_pagination = "SELECT * from post";
-    $halaman = 10;
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 0;
+	$sql_count = "SELECT COUNT(*) AS total FROM post";
+    
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $mulai = ($page > 1) ? ($page * $halaman) - $halaman : 0;
     $result = $mas_class->mas_query($masdb, $sql_pagination);
     $total = mysqli_num_rows($result);
     $pages = ceil($total/$halaman);
+    
+    $query_count = $mas_class->mas_query($masdb, $sql_count);
+	$fetch_count = mysqli_fetch_assoc($query_count);
+	
+	$jumlah_page = ceil($fetch_count['total']/$halaman);
+	$jumlah_number = 3;
+	
+	$start_number = ($page > $jumlah_number)? $page - $jumlah_number : 1; 
+    $end_number = ($page < ($jumlah_page - $jumlah_number))? $page + $jumlah_number : $jumlah_page;
+    
+    
     $sql_post = "SELECT * FROM post ORDER BY id DESC LIMIT $mulai, $halaman";
     
 	//DAFTAR POSTINGAN
@@ -381,9 +394,41 @@ else
     ?>
     <center>
     <?php
-    for($i=1; $i<=$pages; $i++)
+    
+    if($page == 1)
+	{
+		?>
+		<a class="a-menu" href="#">First</a>
+		<?php
+	}
+	else
+	{
+		$link_prev = ($page > 1) ? $page - 1 : 1;
+		
+		?>
+		<a class="a-menu" href="?page=1">First</a>
+		<?php
+	}
+    
+    for($i = $start_number; $i <= $end_number; $i++)
+	{
+  	  ?>
+    	<a class="a-menu" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+    	<?php
+    }
+    if($page == $jumlah_page)
     {
-    	echo "<a class=\"a-menu\" href=\"?page=$i\">$i</a> ";
+    	?>
+    	<a class="a-menu" href="#">--</a>
+    	<?
+    }
+    else
+    {
+    	$link_next = ($page < $jumlah_page)? $page + 1 : $jumlah_page;
+    	?>
+    	<a class="a-menu" href="?page=<?php echo $link_next; ?>">Next</a>
+  	  <a class="a-menu" href="?page=<?php echo $jumlah_page; ?>">Last</a>
+    	<?php
     }
     ?>
     </center>
